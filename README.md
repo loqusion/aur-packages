@@ -1,3 +1,3 @@
-# Hyprshade PKGBUILD
+# AUR PKGBUILDs
 
 This repository is based on [ouuan/AUR-template](https://github.com/ouuan/AUR-template).
