@@ -6,3 +6,5 @@
 */*.pkg.*
 .SRCINFO
 /hyprshade-git/hyprshade/
+/hyprshade/*.glsl
+/hyprshade/*.toml
