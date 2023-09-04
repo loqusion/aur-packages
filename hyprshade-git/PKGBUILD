@@ -38,6 +38,7 @@ pkgver() {
 
 build() {
 	cd $_pkgname
+	pdm install --no-editable
 	pdm build
 	mkdir -p assets/completions
 	export PYTHONPATH="./src"
