@@ -40,6 +40,7 @@ build() {
 	cd $_pkgname
 	pdm build
 	mkdir -p assets/completions
+	export PYTHONPATH="./src"
 	_HYPRSHADE_COMPLETE=bash_source pdm run hyprshade >assets/completions/hyprshade.bash
 	_HYPRSHADE_COMPLETE=fish_source pdm run hyprshade >assets/completions/hyprshade.fish
 	_HYPRSHADE_COMPLETE=zsh_source pdm run hyprshade >assets/completions/_hyprshade
