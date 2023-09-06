@@ -37,8 +37,7 @@ _get_wheel() {
 
 build() {
 	cd "$pkgname-$pkgver"
-	mkdir -p shaders examples
-	cp ../{blue-light-filter,vibrance}.glsl shaders/
+	mkdir -p examples
 	cp ../config.toml examples/
 
 	/usr/bin/python -m build --wheel --no-isolation
