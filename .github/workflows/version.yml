@@ -1,0 +1,23 @@
+name: Version
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
+
+jobs:
+  hyprshade-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup ./data
+        run: |
+          mkdir ./data
+      - name: Install dependencies
+        run: |
+          sudo apt-get -y install exa
+      - name: Clone Repo
+        run: |
+          git clone --depth=1 https://github.com/loqusion/hyprshade ./data/hyprshade
+      - name: List directories
+        run: |
+          exa --color=always --group-directories-first --tree
