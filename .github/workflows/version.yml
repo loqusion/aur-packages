@@ -1,23 +1,37 @@
 name: Version
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 * * * *"
+  # schedule:
+  #   - cron: "0 * * * *"
 
 jobs:
   hyprshade-version:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+      - name: Install dependencies
+        run: |
+          pip install hatch
       - name: Setup ./data
         run: |
           mkdir ./data
-      - name: Install dependencies
-        run: |
-          sudo apt-get -y install exa
       - name: Clone Repo
         run: |
           git clone --depth=1 https://github.com/loqusion/hyprshade ./data/hyprshade
-      - name: List directories
+      - name: Get version
         run: |
-          exa --color=always --group-directories-first --tree
+          cd ./data/hyprshade
+          hatch version >../VERSION
+      - name: Update version and checksums in PKGBUILD
+        run: |
+          cd hyprshade
+          sed -i "s/pkgver=.\+/pkgver=$(cat ../data/VERSION)/" PKGBUILD
+          updpkgsums
+      - name: Push changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore: auto-generated version for Hyprshade"
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "github-actions[bot]@users.noreply.github.com"
+          commit_author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
